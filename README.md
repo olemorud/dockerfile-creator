@@ -12,3 +12,11 @@ RUN apt update \
  && apt install \$(cat $(basename $PACKAGELOG)) \
  && source $(basename $ENVLOG)
 ```
+
+## Run
+This runs the docker image and saves the output to ./output/*
+```
+sudo docker run -it \
+--volume $(pwd)/output:/root/output \
+ghcr.io/olemorud/ubuntu-tool:latest
+```
