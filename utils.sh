@@ -23,16 +23,17 @@ aptWithLog() {
 }
 
 exportimage() {
-	printenv > $HOME/output/$ENVLOG
+	printenv > $ENVLOG
 
 	echo "FROM ubuntu:20.04"
 	echo ""
 	echo "COPY $(basename $PACKAGELOG) ."
-	echo "COPY $(basename $ENVLOG) ."
 	echo ""
-	echo "RUN apt upgrade \\"
+	echo "RUN apt update \\"
 	echo " && apt install \$(cat $(basename $PACKAGELOG)) \\"
-	echo " && source $(basename $ENVLOG)"
+	echo ""
+	echo "COPY $(basename $ENVLOG) /$(basename $ENVLOG)"
+	echo "echo 'source /$(basename $ENVLOG)' >> ~/.bashrc"
 	echo ""
 }
 
