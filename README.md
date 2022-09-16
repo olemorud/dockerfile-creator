@@ -5,12 +5,14 @@ This Ubuntu docker image logs new packages installed by apt-get in `packages` an
 ```
 FROM ubuntu:20.04
 
-COPY $(basename $PACKAGELOG) .
-COPY $(basename $ENVLOG) .
+COPY packages .
+COPY envdump .
 
 RUN apt update \
- && apt install \$(cat $(basename $PACKAGELOG)) \
- && source $(basename $ENVLOG)
+ && apt install $(cat packages) 
+
+COPY envdump /envdump
+ && echo 'source /envdump' >> ~/.bashrc
 ```
 
 ## Run
